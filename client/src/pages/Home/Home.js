@@ -74,6 +74,29 @@ class Home extends Component {
                             )}
                     </Col>
                 </Row>
+                <Row>
+                    <Col size="md-12">
+                        <Jumbotron>
+                            <h1>Saved Articles</h1>
+                        </Jumbotron>
+                        {this.state.articles.length ? (
+                            <List>
+                                {this.state.books.map(book => (
+                                    <ListItem key={book._id}>
+                                        <Link to={"/books/" + book._id}>
+                                            <strong>
+                                                {book.title} by {book.author}
+                                            </strong>
+                                        </Link>
+                                        {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
+                                    </ListItem>
+                                ))}
+                            </List>
+                        ) : (
+                                <h3>No Results to Display</h3>
+                            )}
+                    </Col>
+                </Row>
             </Container>
         );
     }
