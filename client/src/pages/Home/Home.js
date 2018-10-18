@@ -7,7 +7,8 @@ import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, FormBtn } from "../../components/Form";
 import axios from "axios";
-
+// const db = require(".../../../models");
+// import db from "../../../../models"
 
 
 
@@ -34,12 +35,16 @@ class Home extends Component {
 
             axios.get(queryURL).then(function (response) {
                 console.log('response', response)
-
+                
               
             })
 
         
     };
+
+    // displayArticles = response => {
+    //     console.log('response', response)
+    // }
 
     handleFormSubmit = event => {
         event.preventDefault();
