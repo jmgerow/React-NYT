@@ -7,9 +7,6 @@ import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, FormBtn } from "../../components/Form";
 import axios from "axios";
-// const db = require(".../../../models");
-// import db from "../../../../models"
-
 
 
 class Home extends Component {
@@ -30,7 +27,7 @@ class Home extends Component {
             [name]: value
         });
     };
-    articleSearch = () => {
+    articleSearch = (response) => {
         const apiKey = "b9f91d369ff59547cd47b931d8cbc56b:0:74623931";
 
         const queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + apiKey + "&q=" +
@@ -42,14 +39,15 @@ class Home extends Component {
                 // for (var i=0; i<response.data.response.docs.length; i++){
 
                 // }  
-                API.pullArticles({
-                    title: response.data.response.docs[0].headline,
-                    url: response.data.response.docs[0].web_url,
-                    date: response.data.response.docs[0].pub_date
-                  })
+                // API.pullArticles({
+                //     title: response.data.response.docs[0].headline,
+                //     url: response.data.response.docs[0].web_url,
+                //     date: response.data.response.docs[0].pub_date
+                //   })
+                
                     // .then(res => this.loadBooks())
                     // .catch(err => console.log(err));
-                
+                    
             })
 
             
@@ -68,7 +66,11 @@ class Home extends Component {
         //     endYear: this.state.endYear
         // })
         this.articleSearch()
-
+        API.pullArticles({
+            title: "test",
+            url: "test1",
+            date: "test2"
+          }) 
         console.log("articles", this.state.topic)
 
     };
@@ -117,11 +119,11 @@ class Home extends Component {
                         </Jumbotron>
                         {this.state.articles.length ? (
                             <List>
-                                {this.state.books.map(book => (
-                                    <ListItem key={book._id}>
-                                        <Link to={"/books/" + book._id}>
+                                {this.state.articles.map(article => (
+                                    <ListItem key={article._id}>
+                                        <Link to={"/articles/" + article._id}>
                                             <strong>
-                                                {book.title} by {book.author}
+                                                {article.title} by {article.url}
                                             </strong>
                                         </Link>
                                         {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
@@ -139,18 +141,18 @@ class Home extends Component {
                             <h1>Saved Articles</h1>
                         </Jumbotron>
                         {this.state.articles.length ? (
-                            <List>
-                                {this.state.books.map(book => (
-                                    <ListItem key={book._id}>
-                                        <Link to={"/books/" + book._id}>
-                                            <strong>
-                                                {book.title} by {book.author}
-                                            </strong>
-                                        </Link>
-                                        {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
-                                    </ListItem>
-                                ))}
-                            </List>
+                           <List>
+                           {this.state.articles.map(article => (
+                               <ListItem key={article._id}>
+                                   <Link to={"/articles/" + article._id}>
+                                       <strong>
+                                           {article.title} by {article.url}
+                                       </strong>
+                                   </Link>
+                                   {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
+                               </ListItem>
+                           ))}
+                       </List>
                         ) : (
                                 <h3>No Results to Display</h3>
                             )}

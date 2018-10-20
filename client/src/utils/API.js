@@ -26,7 +26,7 @@ export default {
         return axios.post("/api/articles", articleData);
     },
     pullArticles: function () {
-        return axios.post("/api/scrape");
+        return axios.post("/api/articles/scrape");
     }
 };
 

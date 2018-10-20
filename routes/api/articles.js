@@ -7,9 +7,9 @@ router.route("/")
   .post(articleController.create);
 
 //route to post new articles
-router.route("/api/scrape")
+router.route("/scrape")
    .post(articleController.create); 
-   
+
 // Matches with "/api/books/:id"
 router
   .route("/:id")
