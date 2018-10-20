@@ -1,14 +1,20 @@
 const router = require("express").Router();
-// const articlesController = require("../../controllers/articlesController");
-var axios = require("axios");
-var cheerio = require("cheerio");
-// root
+const articleController = require("../../controllers/articleController");
+
+// Matches with "/api/books"
 router.route("/")
+  .get(articleController.findAll)
+  .post(articleController.create);
 
-
-module.exports = function (app) {
-
-
-}
+//route to post new articles
+router.route("/api/scrape")
+   .post(articleController.create); 
+   
+// Matches with "/api/books/:id"
+router
+  .route("/:id")
+  .get(articleController.findById)
+  .put(articleController.update)
+  .delete(articleController.remove);
 
 module.exports = router;

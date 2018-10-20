@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import DeleteBtn from "../../components/DeleteBtn";
 import Jumbotron from "../../components/Jumbotron";
 import { Link } from "react-router-dom";
-// import API from "../../utils/helpers";
+import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, FormBtn } from "../../components/Form";
@@ -19,6 +19,10 @@ class Home extends Component {
         startYear: "",
         endYear: ""
     };
+    
+    componentDidMount() {
+        // this.loadBooks();
+      }
 
     handleInputChange = event => {
         const { name, value } = event.target;
@@ -26,20 +30,29 @@ class Home extends Component {
             [name]: value
         });
     };
-    articleSearch = event => {
+    articleSearch = () => {
         const apiKey = "b9f91d369ff59547cd47b931d8cbc56b:0:74623931";
 
         const queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + apiKey + "&q=" +
             this.state.topic + "&begin_date=" + this.state.startYear + "0101" + "&end_date=" + this.state.endYear + "1231";
 
 
-            axios.get(queryURL).then(function (response) {
-                console.log('response', response)
+            axios.get(queryURL).then(function (response, id) {
+                console.log('response', response.data.response.docs[0])
+                // for (var i=0; i<response.data.response.docs.length; i++){
+
+                // }  
+                API.pullArticles({
+                    title: response.data.response.docs[0].headline,
+                    url: response.data.response.docs[0].web_url,
+                    date: response.data.response.docs[0].pub_date
+                  })
+                    // .then(res => this.loadBooks())
+                    // .catch(err => console.log(err));
                 
-              
             })
 
-        
+            
     };
 
     // displayArticles = response => {
@@ -49,11 +62,11 @@ class Home extends Component {
     handleFormSubmit = event => {
         event.preventDefault();
 
-        this.setState({
-            topic: this.state.topic,
-            startYear: this.state.startYear,
-            endYear: this.state.endYear
-        })
+        // this.setState({
+        //     topic: this.state.topic,
+        //     startYear: this.state.startYear,
+        //     endYear: this.state.endYear
+        // })
         this.articleSearch()
 
         console.log("articles", this.state.topic)
