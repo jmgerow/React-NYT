@@ -35,15 +35,18 @@ class Home extends Component {
 
 
             axios.get(queryURL).then(function (response, id) {
-                console.log('response', response.data.response.docs[0])
+                console.log('response', response.data.response.docs[0].headline.main)
+                console.log('response', response.data.response.docs[0].web_url)
+                console.log('response', response.data.response.docs[0].pub_date)
+                // console.log('response', response.data.response.docs[0])
                 // for (var i=0; i<response.data.response.docs.length; i++){
 
                 // }  
-                // API.pullArticles({
-                //     title: response.data.response.docs[0].headline,
-                //     url: response.data.response.docs[0].web_url,
-                //     date: response.data.response.docs[0].pub_date
-                //   })
+                API.pullArticles({
+                    title: response.data.response.docs[0].headline.main,
+                    url: response.data.response.docs[0].web_url,
+                    date: response.data.response.docs[0].pub_date
+                  })
                 
                     // .then(res => this.loadBooks())
                     // .catch(err => console.log(err));
@@ -66,11 +69,11 @@ class Home extends Component {
         //     endYear: this.state.endYear
         // })
         this.articleSearch()
-        API.pullArticles({
-            title: "test",
-            url: "test1",
-            date: "test2"
-          }) 
+        // API.pullArticles({
+        //     title: "test",
+        //     url: "test1",
+        //     date: "test2"
+        //   }) 
         console.log("articles", this.state.topic)
 
     };

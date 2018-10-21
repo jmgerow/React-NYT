@@ -25,8 +25,8 @@ export default {
     saveArticle: function (articleData) {
         return axios.post("/api/articles", articleData);
     },
-    pullArticles: function () {
-        return axios.post("/api/articles/scrape");
+    pullArticles: function (data) {
+        return axios.post("/api/articles/scrape", data);
     }
 };
 
