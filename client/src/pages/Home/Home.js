@@ -48,14 +48,21 @@ class Home extends Component {
             console.log('response', response.data.response.docs[0].web_url)
             console.log('response', response.data.response.docs[0].pub_date)
             // console.log('response', response.data.response.docs[0])
-            // for (var i=0; i<response.data.response.docs.length; i++){
+            for (var i = 0; i < response.data.response.docs.length; i++) {
 
-            // }  
-            API.pullArticles({
-                title: response.data.response.docs[0].headline.main,
-                url: response.data.response.docs[0].web_url,
-                date: response.data.response.docs[0].pub_date
-            })
+                if (i == 5) {
+                    break
+                } else {
+                    API.pullArticles({
+                        title: response.data.response.docs[i].headline.main,
+                        url: response.data.response.docs[i].web_url,
+                        date: response.data.response.docs[i].pub_date
+
+                    })
+                }
+                // console.log(response.data.response.docs[i].headline.main)
+            }
+
 
             // .then(res => this.loadBooks())
             // .catch(err => console.log(err));
@@ -135,7 +142,7 @@ class Home extends Component {
                                     <ListItem key={article._id}>
                                         <Link to={"/articles/" + article._id}>
                                             <strong>
-                                                {article.title} by {article.url}
+                                                {article.title} <br></br> {article.url}
                                             </strong>
                                         </Link>
                                         {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
@@ -158,7 +165,7 @@ class Home extends Component {
                                     <ListItem key={article._id}>
                                         <Link to={"/articles/" + article._id}>
                                             <strong>
-                                                {article.title} by {article.url}
+                                                {article.title} <br></br> {article.url}
                                             </strong>
                                         </Link>
                                         {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
