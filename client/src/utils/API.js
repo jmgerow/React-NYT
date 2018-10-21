@@ -14,7 +14,7 @@ export default {
         return axios.get("/api/articles");
     },
     // Gets the book with the given id
-    getArticles: function (id) {
+    getArticle: function (id) {
         return axios.get("/api/articles/" + id);
     },
     // Deletes the book with the given id

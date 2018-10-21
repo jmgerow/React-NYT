@@ -16,10 +16,19 @@ class Home extends Component {
         startYear: "",
         endYear: ""
     };
-    
+
     componentDidMount() {
-        // this.loadBooks();
-      }
+        this.loadArticles();
+        console.log(this.state.articles)
+    }
+
+    loadArticles = () => {
+        API.getArticles()
+            .then(res =>
+                this.setState({ articles: res.data, title: "", date: "", url: "" })
+            )
+            .catch(err => console.log(err));
+    };
 
     handleInputChange = event => {
         const { name, value } = event.target;
@@ -34,26 +43,26 @@ class Home extends Component {
             this.state.topic + "&begin_date=" + this.state.startYear + "0101" + "&end_date=" + this.state.endYear + "1231";
 
 
-            axios.get(queryURL).then(function (response, id) {
-                console.log('response', response.data.response.docs[0].headline.main)
-                console.log('response', response.data.response.docs[0].web_url)
-                console.log('response', response.data.response.docs[0].pub_date)
-                // console.log('response', response.data.response.docs[0])
-                // for (var i=0; i<response.data.response.docs.length; i++){
+        axios.get(queryURL).then(function (response, id) {
+            console.log('response', response.data.response.docs[0].headline.main)
+            console.log('response', response.data.response.docs[0].web_url)
+            console.log('response', response.data.response.docs[0].pub_date)
+            // console.log('response', response.data.response.docs[0])
+            // for (var i=0; i<response.data.response.docs.length; i++){
 
-                // }  
-                API.pullArticles({
-                    title: response.data.response.docs[0].headline.main,
-                    url: response.data.response.docs[0].web_url,
-                    date: response.data.response.docs[0].pub_date
-                  })
-                
-                    // .then(res => this.loadBooks())
-                    // .catch(err => console.log(err));
-                    
+            // }  
+            API.pullArticles({
+                title: response.data.response.docs[0].headline.main,
+                url: response.data.response.docs[0].web_url,
+                date: response.data.response.docs[0].pub_date
             })
 
-            
+            // .then(res => this.loadBooks())
+            // .catch(err => console.log(err));
+
+        })
+
+
     };
 
     // displayArticles = response => {
@@ -144,18 +153,18 @@ class Home extends Component {
                             <h1>Saved Articles</h1>
                         </Jumbotron>
                         {this.state.articles.length ? (
-                           <List>
-                           {this.state.articles.map(article => (
-                               <ListItem key={article._id}>
-                                   <Link to={"/articles/" + article._id}>
-                                       <strong>
-                                           {article.title} by {article.url}
-                                       </strong>
-                                   </Link>
-                                   {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
-                               </ListItem>
-                           ))}
-                       </List>
+                            <List>
+                                {this.state.articles.map(article => (
+                                    <ListItem key={article._id}>
+                                        <Link to={"/articles/" + article._id}>
+                                            <strong>
+                                                {article.title} by {article.url}
+                                            </strong>
+                                        </Link>
+                                        {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
+                                    </ListItem>
+                                ))}
+                            </List>
                         ) : (
                                 <h3>No Results to Display</h3>
                             )}
