@@ -30,6 +30,10 @@ class Home extends Component {
             .catch(err => console.log(err));
     };
 
+    clearArticles = () => {
+        API.clearArticles()
+    }
+
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
@@ -44,10 +48,10 @@ class Home extends Component {
 
 
         axios.get(queryURL).then(function (response, id) {
-            console.log('response', response.data.response.docs[0].headline.main)
-            console.log('response', response.data.response.docs[0].web_url)
-            console.log('response', response.data.response.docs[0].pub_date)
-            // console.log('response', response.data.response.docs[0])
+            // console.log('response', response.data.response.docs[0].headline.main)
+            // console.log('response', response.data.response.docs[0].web_url)
+            // console.log('response', response.data.response.docs[0].pub_date)
+            // // console.log('response', response.data.response.docs[0])
             for (var i = 0; i < response.data.response.docs.length; i++) {
 
                 if (i == 5) {
@@ -59,6 +63,7 @@ class Home extends Component {
                         date: response.data.response.docs[i].pub_date
 
                     })
+                       
                 }
                 // console.log(response.data.response.docs[i].headline.main)
             }
@@ -68,7 +73,7 @@ class Home extends Component {
             // .catch(err => console.log(err));
 
         })
-
+        
 
     };
 
@@ -79,18 +84,10 @@ class Home extends Component {
     handleFormSubmit = event => {
         event.preventDefault();
 
-        // this.setState({
-        //     topic: this.state.topic,
-        //     startYear: this.state.startYear,
-        //     endYear: this.state.endYear
-        // })
-        this.articleSearch()
-        // API.pullArticles({
-        //     title: "test",
-        //     url: "test1",
-        //     date: "test2"
-        //   }) 
-        console.log("articles", this.state.topic)
+        this.clearArticles();
+        this.articleSearch();
+        
+        this.loadArticles()
 
     };
 
@@ -163,11 +160,11 @@ class Home extends Component {
                             <List>
                                 {this.state.articles.map(article => (
                                     <ListItem key={article._id}>
-                                        <Link to={"/articles/" + article._id}>
+                                        {/* <Link to={"/articles/" + article._id}> */}
                                             <strong>
-                                                {article.title} <br></br> {article.url}
+                                                {/* {article.title} <br></br> {article.url} */}
                                             </strong>
-                                        </Link>
+                                        {/* </Link> */}
                                         {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
                                     </ListItem>
                                 ))}

@@ -33,5 +33,12 @@ module.exports = {
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
+  },
+  clear: function (req, res) {
+    db.Article
+      .deleteMany({ saved: false })
+      // .then(dbModel => dbModel.remove())
+      // .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
   }
 };

@@ -27,6 +27,9 @@ export default {
     },
     pullArticles: function (data) {
         return axios.post("/api/articles/scrape", data);
+    },
+    clearArticles: function (data) {
+        return axios.delete("/api/articles/clear", data);
     }
 };
 

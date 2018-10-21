@@ -10,6 +10,10 @@ router.route("/")
 router.route("/scrape")
    .post(articleController.create); 
 
+//route to clear articles in DB
+router.route("/clear")
+   .delete(articleController.clear);  
+   
 // Matches with "/api/books/:id"
 router
   .route("/:id")
